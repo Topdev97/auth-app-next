@@ -12,11 +12,22 @@ export async function POST(request: NextRequest) {
     const { password, email, username } = reqBody;
 
     console.log(reqBody);
+
     // check if user Already exist
     const user = await User.findOne({ email });
     if (user) {
       return NextResponse.json(
-        { error: "User Already Exist" },
+        { error: "Email already exists." },
+        { status: 400 }
+      );
+    }
+
+    const userNameExist = await User.findOne({ username });
+    if (userNameExist) {
+      return NextResponse.json(
+        {
+          error: "Username already exists.",
+        },
         { status: 400 }
       );
     }
@@ -36,13 +47,14 @@ export async function POST(request: NextRequest) {
     const savedUser = await newUser.save();
     console.log(savedUser);
     return NextResponse.json({
-      message: "User Created Succesfully",
-      sucess: true,
+      message: "User created successfully.",
+      success: true,
       savedUser,
     });
-
-
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: "An error occurred during signup. Please try again later." },
+      { status: 500 }
+    );
   }
 }

@@ -33,12 +33,22 @@ const SignUp = () => {
       console.log("Form values:", user);
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
-      console.log("signup sucess", response.data);
-      toast.success("signup sucess", response.data);
+      console.log("signup success", response.data);
+      toast.success("User created successfully.");
       router.push("/login");
     } catch (error: any) {
-      console.log("Signup Failed");
-      toast.error(error.message);
+      console.error("Signup Failed", error);
+      if (error.response && error.response.status === 400) {
+        // Username or email already exists error
+        const errorMessage = error.response.data.error;
+        toast.error(errorMessage);
+      } else if (error.response && error.response.status === 500) {
+        // Server error
+        toast.error("An error occurred during signup. Please try again later.");
+      } else {
+        // Generic error message
+        toast.error("An unexpected error occurred.");
+      }
     } finally {
       setLoading(false);
     }

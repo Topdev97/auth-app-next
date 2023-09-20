@@ -38,10 +38,24 @@ export async function POST(request: NextRequest) {
       email: userExist.email,
     };
 
-    // create token
-    const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, {
-      expiresIn: "1h",
+    // create jwt  token
+    const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
+      expiresIn: "1d",
     });
+
+    // store it in a cookies
+    const response = NextResponse.json({
+      message: "login Suesfully",
+      sucess: true,
+    });
+
+    //  setting cookies in response
+    response.cookies.set("token", token, {
+      httpOnly: true,
+    });
+
+    // now return response to frontend
+    return response;
   } catch (error: any) {
     return NextResponse.json(
       { error: "An Error Occured during login" },

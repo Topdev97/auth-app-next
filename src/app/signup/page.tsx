@@ -30,7 +30,7 @@ const SignUp = () => {
   const onSignUp = async (event: { preventDefault: () => void }) => {
     try {
       event.preventDefault();
-      console.log("Form values:", user);
+      // console.log("Form values:", user);
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
       console.log("signup success", response.data);
@@ -208,21 +208,20 @@ const SignUp = () => {
                 )}
 
                 <br />
-
-                <button
-                  className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded text-[1rem]"
-                  onClick={clearAllFields}
-                >
-                  Clear Fields
-                </button>
-                <br />
-                <Link
-                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                  href="/login"
-                >
-                  Go to Login Page
-                </Link>
               </form>
+              <button
+                className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded text-[1rem]"
+                onClick={clearAllFields}
+              >
+                Clear Fields
+              </button>
+              <br />
+              <Link
+                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                href="/login"
+              >
+                Go to Login Page
+              </Link>
             </div>
           </div>
         </section>

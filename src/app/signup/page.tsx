@@ -22,7 +22,7 @@ const SignUp = () => {
 
   // Event handler to update the state when input values change
   const handleInputChange = (event: { target: { name: any; value: any } }) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target;   
     setUser({ ...user, [name]: value });
   };
 
